@@ -19,7 +19,7 @@ sync.o: sync.c sync.h
 sample.o: sample.c
 	$(CC) $(CFLAGS) -c -o $@ sample.c
 
-st_queue.o: st_queue.c st_queue.h
+queue.o: queue.c queue.h
 	$(CC) $(CFLAGS) -c -o $@ st_queue.c
 
 libsthread.a: sthread.o sync.o
@@ -28,8 +28,8 @@ libsthread.a: sthread.o sync.o
 sample: sample.o libsthread.a
 	$(CC) -o $@ sample.o -L. -lsthread
 
-test: test_sthreads.c sync.o sthread.o st_queue.o
-	$(CC) -o test test_sthreads.c sync.o sthread.o st_queue.o
+test: test1.c sync.o sthread.o st_queue.o
+	$(CC) -o test test1.c sync.o sthread.o queue.o
 
 clean:
 	$(RM) libsthread.a sample *.o *~

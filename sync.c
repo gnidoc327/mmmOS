@@ -9,7 +9,10 @@
 #define _REENTRANT
 
 #include "sthread.h"
-
+#include "sync.h"
+#include "stddef.h"
+#include "stddef.h"
+#include "stddef.h"
 
 /*
  * Mutex routines
