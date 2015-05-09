@@ -26,19 +26,19 @@ void stq_enqueue(struct st_queue* queue, sthread_t t){
 
 sthread_t stq_dequeue(struct st_queue* queue){
 
-     sthread_t rv = NULL;
-	 struct st_node* stn = NULL;
+     sthread_t returnNode = NULL;
+	 struct st_node* stNode = NULL;
 
 	 if (queue->first = NULL){
 	 	return NULL;
 	 } else {
-		rv = queue->first->st;
-		stn = queue->first;
+		returnNode = queue->first->st;
+		stNode = queue->first;
 		queue->first = queue->first->next;
         if (queue->first == NULL){
 			queue->last = NULL;
 		}
-		free(stn);
-		return rv;
+		free(stNode);
+		return returnNode;
 	 }
 }

@@ -20,21 +20,21 @@
 
 int sthread_mutex_init(sthread_mutex_t *mutex){
 	mutex->count = 0;
-	stq_init(&mutex->q);
+	stq_init(&mutex->queue);
 	mutex->current = NULL;
 
 	return 0;
 }
 
 int sthread_mutex_destroy(sthread_mutex_t *mutex){
-	return 0;
+ 	return 0;
 }
 
 int sthread_mutex_lock(sthread_mutex_t *mutex){
 	if( mutex->current == sthread_self() ){
 		mutex->count++;
 	}else if( !sthread_mutex_trylock(mutex) ){
- 		stq_enqueue(&mutex->q, sthread_self());
+ 		stq_enqueue(&mutex->queue, sthread_self());
 		sthread_suspend();
 	}
 
@@ -54,7 +54,7 @@ int sthread_mutex_trylock(sthread_mutex_t *mutex){
 int sthread_mutex_unlock(sthread_mutex_t *mutex){
 	mutex->count--;
 	if( mutex->count == 0 ){
-		mutex->current = stq_dequeue(&mutex->q);
+		mutex->current = stq_dequeue(&mutex->queue);
 		mutex->count = 1;
 		sthread_wake(mutex->current);
 	}

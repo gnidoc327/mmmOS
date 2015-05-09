@@ -28,8 +28,5 @@ libsthread.a: sthread.o sync.o
 sample: sample.o libsthread.a
 	$(CC) -o $@ sample.o -L. -lsthread
 
-test: test1.c sync.o sthread.o st_queue.o
-	$(CC) -o test test1.c sync.o sthread.o queue.o
-
 clean:
 	$(RM) libsthread.a sample *.o *~

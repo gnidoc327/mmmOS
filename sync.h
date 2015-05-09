@@ -10,7 +10,7 @@
 
 struct sthread_mutex_struct {
 	int count;
-	struct st_queue *q;
+	struct st_queue *queue;
 	sthread_t current;
 };
 
