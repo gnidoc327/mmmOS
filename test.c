@@ -7,12 +7,7 @@ int shared_mem = 0;
 sthread_mutex_t mutex;
 
 
-/**
- *  * threadmain1
- *   *
- *    * get a lock on the mutex a few times and increment the param
- *     *
- *      */
+// get a lock on the mutex a few times and increment the param
 int threadmain1(void *arg){
  int threadno = (int)arg;
 
@@ -39,11 +34,7 @@ int threadmain1(void *arg){
 }
 
 
-/**
- *  * threadmain2
- *   *
- *    * test "recursiveness" of the mutex.  
- *     */
+//test "recursiveness" of the mutex.  
 int threadmain2(void *arg){
  int threadno = (int)arg;
 
@@ -77,10 +68,7 @@ int threadmain2(void *arg){
 
 
 
-/**
- *  * just holds the lock for a while
- *   *
- *    */
+//just holds the lock for a while
 int threadmain3(void *arg){
  int threadno = (int)arg;
 
@@ -97,10 +85,7 @@ int threadmain3(void *arg){
 }
 
 
-/**
- *  * tests trylock
- *   *
- *    */
+//tests trylock
 int threadmain4(void *arg){
  int threadno = (int)arg;
 
