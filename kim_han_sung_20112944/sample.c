@@ -7,8 +7,8 @@ int shared_mem = 0;
 sthread_mutex_t mutex;
 
 
-// get a lock on the mutex a few times and increment the param
-int threadmain1(void *arg){
+// lock mutex a few times and increment shared_mem 
+int thread1(void *arg){
  int threadno = (int)arg;
 
  printf("thread %d: Starting!\n", threadno);
@@ -19,12 +19,12 @@ int threadmain1(void *arg){
 
   printf("thread %d: want that critical section!\n", threadno);
   sthread_mutex_lock(&mutex);
-
-  printf("thread %d: fucking loving this critical section!\n", threadno);
+  
+  printf("thread %d: this critical section!\n", threadno);
   shared_mem++;
   sleep(1);
   sthread_mutex_unlock(&mutex);
-  printf("thread %d: outta there.\n", threadno);
+  printf("thread %d: out to there.\n", threadno);
 
  }
 
@@ -35,21 +35,21 @@ int threadmain1(void *arg){
 
 
 //test "recursiveness" of the mutex.  
-int threadmain2(void *arg){
+int thread2(void *arg){
  int threadno = (int)arg;
 
  printf("thread %d: Starting!\n", threadno);
 
 
- printf("thread %d: want that critical section. \n", threadno);
+ printf("thread %d: want that critical section.\n", threadno);
  sthread_mutex_lock(&mutex);
- printf("thread %d: got that critical section.  oh yes i did!\n", threadno);
+ printf("thread %d: get that critical section.\n", threadno);
 
  sleep(1);
 
  sthread_mutex_lock(&mutex);
 
- printf("thread %d: locked that shit again! don't even doubt it!\n", threadno);
+ printf("thread %d: locked again\n", threadno);
 
  shared_mem++;
  sleep(1);
@@ -57,7 +57,7 @@ int threadmain2(void *arg){
 
  sthread_mutex_unlock(&mutex);
 
- printf("thread %d: unlocked once.  still got another though, so step off.\n", threadno);
+ printf("thread %d: unlocked once. so step off.\n", threadno);
 
  sleep(1);
 
@@ -69,7 +69,7 @@ int threadmain2(void *arg){
 
 
 //just holds the lock for a while
-int threadmain3(void *arg){
+int thread3(void *arg){
  int threadno = (int)arg;
 
  printf("thread %d: Starting!\n", threadno);
@@ -86,7 +86,7 @@ int threadmain3(void *arg){
 
 
 //tests trylock
-int threadmain4(void *arg){
+int thread4(void *arg){
  int threadno = (int)arg;
 
  printf("thread %d: Starting!\n", threadno);
@@ -127,13 +127,13 @@ int main(int argc, char** argv){
 
  int i;
  for (i=0; i<4; i++){
-  if (sthread_create(&(threads[i]), threadmain1, (void *)(i+1)) == -1)
+  if (sthread_create(&(threads[i]), thread1, (void *)(i+1)) == -1)
    fprintf(stderr, "%s: sthread_create: %s\n", argv[0], strerror(errno));
-  if (sthread_create(&(threads[4]), threadmain2, (void *)(5)) == -1)
+  if (sthread_create(&(threads[4]), thread2, (void *)(5)) == -1)
    fprintf(stderr, "%s: sthread_create: %s\n", argv[0], strerror(errno));
-  if (sthread_create(&(threads[i]), threadmain3, (void *)6) == -1)
+  if (sthread_create(&(threads[i]), thread3, (void *)6) == -1)
    fprintf(stderr, "%s: sthread_create: %s\n", argv[0], strerror(errno));
-  if (sthread_create(&(threads[i]), threadmain4, (void *)7) == -1)
+  if (sthread_create(&(threads[i]), thread4, (void *)7) == -1)
    fprintf(stderr, "%s: sthread_create: %s\n", argv[0], strerror(errno));
   return 0;
  }

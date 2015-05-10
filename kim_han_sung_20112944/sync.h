@@ -1,5 +1,5 @@
 /*
- * NAME, etc.
+ * kim han sung, etc.
  *
  * sync.h
  */

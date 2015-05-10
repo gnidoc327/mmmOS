@@ -1,5 +1,5 @@
 /*
- * NAME, etc.
+ * kim seong won, etc.
  *
  * sync.h
  */
