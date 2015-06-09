@@ -89,8 +89,8 @@ void getPage(int logical_address){
     
     insertIntoTLB(pageNumber, frameNumber);  
     value = physicalMemory[frameNumber][offset];  
-   	printf("frame number: %d\n", frameNumber);
-	printf("offset: %d\n", offset); 
+//  printf("frame number: %d\n", frameNumber);
+//	printf("offset: %d\n", offset); 
     printf("Virtual address: %d Physical address: %d Value: %d\n", logical_address, (frameNumber << 8) | offset, value);
 }
 
@@ -202,8 +202,6 @@ int main(int argc, char *argv[])
 
 		// arbitrarily retrieve the 50th byte from the buffer
 		value = buffer[50];
-
-		printf("%d \n %d\n", logical_address, value);
 
 		// just so we seek to 10 different spots in the file
 		i = (i + 1) % 10;
